@@ -13,5 +13,5 @@ bibliography: references.bib
 csl: apa.csl
 ---
 
-## Section
-This is a simple placeholder for the manuscript's main document [@knuth84].
+## Introduction, Background, and Motivation
+
