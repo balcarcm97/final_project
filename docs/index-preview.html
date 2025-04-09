@@ -234,7 +234,12 @@
    
   <ul>
   <li><a href="#introduction-background-and-motivation" id="toc-introduction-background-and-motivation" class="nav-link active" data-scroll-target="#introduction-background-and-motivation">Introduction, Background, and Motivation</a></li>
-  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">Data Exploration</a></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">Data Exploration</a>
+  <ul class="collapse">
+  <li><a href="#plot-data-for-the-trees-a-mixed-conifer-forest-in-sierra-nevada" id="toc-plot-data-for-the-trees-a-mixed-conifer-forest-in-sierra-nevada" class="nav-link" data-scroll-target="#plot-data-for-the-trees-a-mixed-conifer-forest-in-sierra-nevada">Plot data for the trees a mixed conifer forest in Sierra Nevada</a></li>
+  <li><a href="#more-in-depth-data-for-the-trees-and-bark-beetle-presence" id="toc-more-in-depth-data-for-the-trees-and-bark-beetle-presence" class="nav-link" data-scroll-target="#more-in-depth-data-for-the-trees-and-bark-beetle-presence">More in Depth data for the trees and bark beetle presence</a></li>
+  <li><a href="#fires-in-california-between-2013-2019" id="toc-fires-in-california-between-2013-2019" class="nav-link" data-scroll-target="#fires-in-california-between-2013-2019">Fires in California between 2013-2019</a></li>
+  </ul></li>
   <li><a href="#methods-identification" id="toc-methods-identification" class="nav-link" data-scroll-target="#methods-identification">Methods Identification</a></li>
   </ul>
 </nav>
@@ -243,35 +248,59 @@
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <section id="introduction-background-and-motivation" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-background-and-motivation">Introduction, Background, and Motivation</h2>
+       <section id="introduction-background-and-motivation" class="level1">
+<h1>Introduction, Background, and Motivation</h1>
 <p>hi</p>
 </section>
-<section id="data-exploration" class="level2">
-<h2 class="anchored" data-anchor-id="data-exploration">Data Exploration</h2>
+<section id="data-exploration" class="level1">
+<h1>Data Exploration</h1>
 <div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"PlotData.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tree_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"TreeData.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(plot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>fireincidents <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"California_Fire_incidents.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+<section id="plot-data-for-the-trees-a-mixed-conifer-forest-in-sierra-nevada" class="level2">
+<h2 class="anchored" data-anchor-id="plot-data-for-the-trees-a-mixed-conifer-forest-in-sierra-nevada">Plot data for the trees a mixed conifer forest in Sierra Nevada</h2>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(plot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
+<div class="">
 <figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></a></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(tree_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="index_files/figure-html/unnamed-chunk-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p class=""><a href="index_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div></div>
 </section>
-<section id="methods-identification" class="level2">
-<h2 class="anchored" data-anchor-id="methods-identification">Methods Identification</h2>
+<section id="more-in-depth-data-for-the-trees-and-bark-beetle-presence" class="level2">
+<h2 class="anchored" data-anchor-id="more-in-depth-data-for-the-trees-and-bark-beetle-presence">More in Depth data for the trees and bark beetle presence</h2>
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(tree_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="fires-in-california-between-2013-2019" class="level2">
+<h2 class="anchored" data-anchor-id="fires-in-california-between-2013-2019">Fires in California between 2013-2019</h2>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(fireincidents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="methods-identification" class="level1">
+<h1>Methods Identification</h1>
 <p>hi</p>
 </section>
      </main>
@@ -694,7 +723,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

@@ -13,21 +13,34 @@ bibliography: references.bib
 csl: apa.csl
 ---
 
-## Introduction, Background, and Motivation
+# Introduction, Background, and Motivation
 hi
 
 
 
-## Data Exploration 
+# Data Exploration 
 ```{r}
 plot_data <- read.csv("PlotData.csv")
 tree_data <- read.csv("TreeData.csv")
+fireincidents <- read.csv("California_Fire_incidents.csv")
+```
+## Plot data for the trees a mixed conifer forest in Sierra Nevada
+```{r}
 visdat::vis_dat(plot_data)
+```
+## More in Depth data for the trees and bark beetle presence
+```{r}
 visdat::vis_dat(tree_data)
+```
+## Fires in California between 2013-2019
+```{r}
+visdat::vis_dat(fireincidents)
 ```
 
 
-## Methods Identification
+
+
+# Methods Identification
 hi
 
 
