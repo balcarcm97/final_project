@@ -164,7 +164,16 @@
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>  
+</script>  <link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>  
       <meta name="citation_title" content="ESS330 Final Project">
 <meta name="citation_author" content="Mel Balcarcel Arias">
 <meta name="citation_author" content="Sean Walsh">
@@ -284,15 +293,26 @@
 </div>
 </div>
 </div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Metadata.xlsx"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(data, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>), <span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-eefb771f9b4b713221c9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-eefb771f9b4b713221c9">{"x":{"filter":"none","vertical":false,"data":[["plot, tree","plot, tree","plot, tree","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","plot","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree","tree",null,null,"Weather variables not used in analysis:","plot","plot","plot","plot","plot","plot"],["plot","fire","year","date","aspect","beers","slope","sp","trmi","preshrub","trees_ns","rdnbrb","elev","burndate","rh","balivem","badeadm","batotm","liveconladder","deadconladder","livehardladder","deadhardladder","spec","dbh","ba","ht","bchar","torpt","mort","deadatfire","redatfire","killfire","killbeet","gattack","noattack","genus",null,null,null,"windspeed","winddir","temp","gustspeed","gustdir","sr"],["Plot number","Fire name","Year of sampling","Date of sampling","Aspect in degrees","Aspect, transformed according to Beers 1966 (Beers, T. W., P. E. Dress, and L. C. Wensel. 1966. Aspect transformation in site productivity research. Journal of Forestry 64:691–692)","Slope in percent","Slope position relative to nearest first order stream: 1 = toe/valley bottom; 2 = footslope; 3 = backslope; 4 = shoulder; 5 = ridgetop/summit","Topographic relative moisture index (Parker, A. J. 1982. The topographic relative moisture index: an approach to soil-moisture assessment in mountain terrain. Physical Geography 3:160–168)","Midpoint of category for estimeated pre-fire shrub cover in percent (0-10, 11-30, 31-60, 61-80, 81-100)","Number of suitable trees not sampled; applies only to the Rough Fire where maximum of 10 trees were sampled","Relative differenced normalized burn ratio, extended assessment","Elevation in meters","Plot burn date based on published GIS perimeters of daily fire progression","Relative humidity","Live stand level basal area using a 20 factor basal area gauge and converted from ft^2 to m^2","Dead stand level basal area using a 20 factor basal area gauge and converted from ft^2 to m^2","Sum of live and dead stand level basal area in m^2","Live conifer ladder fuel density (number of trees ≥ 1.37 m tall (4.5 ft) and &lt; 25 cm DBH)","Dead conifer ladder fuel density","Live hardwood ladder fuel density","Dead hardwood ladder fuel density","Tree species six letter code (ABICON = Abies concolor; ABIMAG = Abies magnifica; CALDEC = Calocedrus decurrens; PINJEF = Pinus jeffreyi; PINLAM = Pinus lambertiana; PINPON = Pinus ponderosa; QUECHR = Quercus chrysolepis; QUEKEL = Quercus kelloggii)","Diameter at breast height, cm","Basal area: dbh converted to cross-sectional area","Tree height, meters","Bole char height, meters","Canopy torch, percent","Mortality status (see Table 4 of publication)","Dead at the time of fire (includes older dead and red phase trees)","Recently dead (red phase) at the time of fire","Killed by fire","Killed by bark beetles post-fire","Live at the time of sampling but under current attack by bark beetles","Live at sampling, no evidence of current bark beetle attack","Tree genus",null,null,null,"Wind speed in miles per hour","Wind direction in degrees","Temperature in degrees Fahrenheit","Wind gust speed, or maximum wind speed, in miles per hour","Wind gust direction in degrees","Solar radiation in watts/m^2"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Dataset(s)<\/th>\n      <th>Column Heading<\/th>\n      <th>Definition (see publication for further details)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"name":"Dataset(s)","targets":0},{"name":"Column Heading","targets":1},{"name":"Definition (see publication for further details)","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div></div>
 </section>
 <section id="fires-in-california-between-2013-2019" class="level2">
 <h2 class="anchored" data-anchor-id="fires-in-california-between-2013-2019">Fires in California between 2013-2019</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(fireincidents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_dat</span>(fireincidents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="">
 <figure class="figure">
-<p class=""><a href="index_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p class=""><a href="index_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -723,7 +743,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":false});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

@@ -32,6 +32,14 @@ visdat::vis_dat(plot_data)
 ```{r}
 visdat::vis_dat(tree_data)
 ```
+```{r}
+library(readxl)
+library(DT)
+
+data <- read_excel("Metadata.xlsx")
+datatable(data, options = list(pageLength = 10), rownames = FALSE)
+```
+
 ## Fires in California between 2013-2019
 ```{r}
 visdat::vis_dat(fireincidents)
