@@ -22,8 +22,10 @@ hi
 ```{r}
 plot_data <- read.csv("PlotData.csv")
 tree_data <- read.csv("TreeData.csv")
+fireincidents <- read.csv("California_Fire_incidents.csv")
 visdat::vis_dat(plot_data)
 visdat::vis_dat(tree_data)
+visdat::vis_dat(fireincidents)
 ```
 
 
