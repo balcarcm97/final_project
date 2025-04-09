@@ -1,0 +1,17 @@
+{
+  "hash": "4978044c7a163742356ff099bd76674f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: ESS330 Final Project\nauthors:\n  - name: Mel Balcarcel Arias\n    affiliation: Colorado State University\n    roles: writing\n    corresponding: true\n  - name: Sean Walsh\n    affiliation: Colorado State University\n    roles: writing\n    corresponding: false\nbibliography: references.bib\ncsl: apa.csl\n---\n\n\n\n\n\n## Introduction, Background, and Motivation\nhi\n\n\n\n## Data Exploration \n\n\n\n\n::: {.cell}\n\n```{.r .cell-code .hidden}\nplot_data <- read.csv(\"PlotData.csv\")\ntree_data <- read.csv(\"TreeData.csv\")\nvisdat::vis_dat(plot_data)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n\n```{.r .cell-code .hidden}\nvisdat::vis_dat(tree_data)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-2.png){width=672}\n:::\n:::\n\n\n\n\n\n\n## Methods Identification\nhi\n\n\n\n\n\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
