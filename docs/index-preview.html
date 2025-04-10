@@ -53,7 +53,27 @@
       @media screen {
       pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
       }
-    </style>
+      /* CSS for citations */
+      div.csl-bib-body { }
+      div.csl-entry {
+        clear: both;
+        margin-bottom: 0em;
+      }
+      .hanging-indent div.csl-entry {
+        margin-left:2em;
+        text-indent:-2em;
+      }
+      div.csl-left-margin {
+        min-width:2em;
+        float:left;
+      }
+      div.csl-right-inline {
+        margin-left:2em;
+        padding-left:1em;
+      }
+      div.csl-indent {
+        margin-left: 2em;
+      }    </style>
 
     <style>
       body.hypothesis-enabled #quarto-embed-header {
@@ -259,10 +279,10 @@
 <section id="introduction-background-and-motivation" class="level1">
 <h1>Introduction, Background, and Motivation</h1>
 <p style="text-indent: 2em;">
-Air pollution has long been a contributor to respiratory illnesses. There are many factors that go into the quality of air but some stick out more than others. PM2.5 refers to fine particles of pollution and they have been confirmed to lead to heart disease, asthma, and other pulmonary issues. Air pollution is an especially concerning form of pollution because it’s one that people may not be fully aware that they’re exposed to. However, its consequences can be very severe, and in the long run could be considered a silent killer. Over multiple studies, information has been discovered of its effects on human health ranging from multiple conditions. PM2.5 isn’t the only thing to be concerned about though, there are many other particulates that are of concern and should be on everyone’s radar.
+Air pollution has long been a contributor to respiratory illnesses. There are many factors that go into the quality of air but some stick out more than others. PM2.5 refers to fine particles of pollution and they have been confirmed to lead to heart disease, asthma, and other pulmonary issues <span class="citation" data-cites="DepartmentofHealth_2024">(<a href="#ref-DepartmentofHealth_2024" role="doc-biblioref">Health, 2024</a>)</span>. Air pollution is an especially concerning form of pollution because it’s one that people may not be fully aware that they’re exposed to. However, its consequences can be very severe, and in the long run could be considered a silent killer. Over multiple studies, information has been discovered of its effects on human health ranging from multiple conditions <span class="citation" data-cites="malik2024">(<a href="#ref-malik2024" role="doc-biblioref">Malik et al., 2024</a>)</span>. PM2.5 isn’t the only thing to be concerned about though, there are many other particulates that are of concern and should be on everyone’s radar. From ozone to nitrogen dioxide, the presence of these pollutants can greatly impact vulnerable populations such as children and the elderly. Continued monitoring and stricter regulations may be essential to reducing long-term exposure and protecting public health <span class="citation" data-cites="monoson2023air">(<a href="#ref-monoson2023air" role="doc-biblioref">Monoson et al., 2023</a>)</span>.
 </p>
 <p style="text-indent: 2em;">
-In addition, the world saw another detrimental contributor to reduced pulmonary health: COVID-19. Some studies suggested worsening asthma and worse covid symptoms when exposed to both. This indicates that people in areas of high pollution and asthma likely had a very difficult time during the initial outbreak of covid and the years that came after it. While a pandemic will be impossible to predict in the future, reduction in air pollution is a lot more feasible. By examining the severity of asthma, we can hopefully have more preventative measures in case other extreme instances of diseases that affect pulmonary health spring up. This way, if another event like covid happens, more extensive measures could be taken to help out its more vulnerable residents.
+In addition, the world saw another detrimental contributor to reduced pulmonary health: COVID-19. Some studies suggested worsening asthma and worse covid symptoms when exposed to both <span class="citation" data-cites="agondi2022worsening">(<a href="#ref-agondi2022worsening" role="doc-biblioref">Agondi et al., 2022</a>)</span>. This indicates that people in areas of high pollution and asthma likely had a very difficult time during the initial outbreak of covid and the years that came after it. While a pandemic will be impossible to predict in the future, reduction in air pollution is a lot more feasible. By examining the severity of asthma, we can hopefully have more preventative measures in case other extreme instances of diseases that affect pulmonary health spring up. This way, if another event like covid happens, more extensive measures could be taken to help out its more vulnerable residents. It also highlights the importance of creating healthier urban environments that reduce exposure risks in the first place. Investing in cleaner technologies and infrastructure now could make a significant difference in how societies handle future health crises.
 </p>
 <p style="text-indent: 2em;">
 We were able to pull 4 sets of data. The first that we found was the most recent data of asthma prevalence and mortality. Unfortunately these datasets only went up to 2021 which limits the scope of this project. However, the CDC provides some great information. It not only provides the total number of people with asthma but it also gives us a percentage by state which is very useful for nationwide analysis. In addition they also provide mortality rates, and looking at the data, while the numbers are (thankfully) not very large, it could still provide valuable insights. Since this data only goes up to 2021, air quality data from the EPA was pulled to match this window of time. The EPA keeps records of carbon monoxide, nitrogen dioxide, ozone, sulfur dioxide, PM2.5, PM10 and lead as measures of air quality. They also include a key to show when levels are above the standard. There appear to be a good amount of missing data points but thankfully the data seems robust enough to use. Finally, we included a dataset of total covid cases by county, but state data would likely be more useful and manageable. By having this information, we can see what states were hit the hardest and had the most cases.
@@ -342,6 +362,20 @@ There are multiple avenues for methodology with the data that we have. First and
 <li><p>Another challenge could just be that the data doesn’t go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used.</p></li>
 <li><p>Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them.</p></li>
 </ul>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-agondi2022worsening" class="csl-entry" role="listitem">
+Agondi, R. C., Menechino, N., Marinho, A. K. B. B., Kalil, J., &amp; Giavina-Bianchi, P. (2022). Worsening of asthma control after COVID-19. <em>Frontiers in Medicine</em>, <em>9</em>, 882665.
+</div>
+<div id="ref-DepartmentofHealth_2024" class="csl-entry" role="listitem">
+Health, D. of. (2024). <em>Particle Pollution and Health</em>. <a href="https://www.health.ny.gov/environmental/indoors/air/pmq_a.htm">https://www.health.ny.gov/environmental/indoors/air/pmq_a.htm</a>
+</div>
+<div id="ref-malik2024" class="csl-entry" role="listitem">
+Malik, A., Islam, J., Zaib, G., Zahid, A., Rashid, A., &amp; Zia, T. (2024). Interplay of smog and health conditions: A public health perspective on respiratory, hypertensive, and cardiovascular morbidity. <em>Journal of Physical, Biomedical and Biological Sciences</em>, <em>2024</em>(1), 37–37.
+</div>
+<div id="ref-monoson2023air" class="csl-entry" role="listitem">
+Monoson, A., Schott, E., Ard, K., Kilburg-Basnyat, B., Tighe, R. M., Pannu, S., &amp; Gowdy, K. M. (2023). Air pollution and respiratory infections: The past, present, and future. <em>Toxicological Sciences</em>, <em>192</em>(1), 3–14.
+</div>
+</div>
 </section>
      </main>
 <!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
@@ -763,7 +797,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
