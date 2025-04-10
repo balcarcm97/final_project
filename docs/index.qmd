@@ -12,13 +12,37 @@ authors:
 bibliography: references.bib
 csl: apa.csl
 ---
-# Title: Low Air Quality, COVID Severity, and Their Effects on Asthma 
+
+# Title: Low Air Quality, COVID Severity, and Their Effects on Asthma
+
 # Introduction, Background, and Motivation
-hi
 
+<p style="text-indent: 2em;">
 
+Air pollution has long been a contributor to respiratory illnesses. There are many factors that go into the quality of air but some stick out more than others. PM2.5 refers to fine particles of pollution and they have been confirmed to lead to heart disease, asthma, and other pulmonary issues. Air pollution is an especially concerning form of pollution because it’s one that people may not be fully aware that they’re exposed to. However, its consequences can be very severe, and in the long run could be considered a silent killer. Over multiple studies, information has been discovered of its effects on human health ranging from multiple conditions. PM2.5 isn’t the only thing to be concerned about though, there are many other particulates that are of concern and should be on everyone's radar.
 
-# Data Exploration 
+</p>
+
+<p style="text-indent: 2em;">
+
+In addition, the world saw another detrimental contributor to reduced pulmonary health: COVID-19. Some studies suggested worsening asthma and worse covid symptoms when exposed to both. This indicates that people in areas of high pollution and asthma likely had a very difficult time during the initial outbreak of covid and the years that came after it. While a pandemic will be impossible to predict in the future, reduction in air pollution is a lot more feasible. By examining the severity of asthma, we can hopefully have more preventative measures in case other extreme instances of diseases that affect pulmonary health spring up. This way, if another event like covid happens, more extensive measures could be taken to help out its more vulnerable residents.
+
+</p>
+
+<p style="text-indent: 2em;">
+
+We were able to pull 4 sets of data. The first that we found was the most recent data of asthma prevalence and mortality. Unfortunately these datasets only went up to 2021 which limits the scope of this project. However, the CDC provides some great information. It not only provides the total number of people with asthma but it also gives us a percentage by state which is very useful for nationwide analysis. In addition they also provide mortality rates, and looking at the data, while the numbers are (thankfully) not very large, it could still provide valuable insights. Since this data only goes up to 2021, air quality data from the EPA was pulled to match this window of time. The EPA keeps records of carbon monoxide, nitrogen dioxide, ozone, sulfur dioxide, PM2.5, PM10 and lead as measures of air quality. They also include a key to show when levels are above the standard. There appear to be a good amount of missing data points but thankfully the data seems robust enough to use. Finally, we included a dataset of total covid cases by county, but state data would likely be more useful and manageable. By having this information, we can see what states were hit the hardest and had the most cases.
+
+</p>
+
+<p style="text-indent: 2em;">
+
+There are multiple avenues for methodology with the data that we have. First and foremost, we could consolidate our air quality data to examine each pollutant and get a total count of how many counties exceed the acceptable level. Once we have these amounts we can rank states by how many counties they have that exceed certain pollutants. After this we can rank them and see which are the worst. In addition, for our covid data, we can consolidate our data into state counts to see which states were hit the hardest with cases. While our worst polluted states and states with most covid cases may not line up, it will be interesting to see if there are states where both are prevalent. Once we have states with the most extreme parameters, we could cross-reference it with the number of asthma cases and mortality rates. While the work may have to be extensive, we could also go deeper and look at each pollutant in the air quality data and reference it with the rest of our data. If we are able to find a correlation between these environmental factors and asthma, we could also implement some machine learning for further analysis. We can look at how pollutants and their levels could predict asthma and possibly other pulmonary issues. Predicting data like this could be very useful when it comes to providing motivation to keep pollution levels low. When the human impact could be easily quantifiable, it could become easier to convince stakeholders.
+
+</p>
+
+# Data Exploration
+
 ```{r}
 EPA_air_quality <- read.csv("conreport2021.csv")
 asthma_prevalence <- read.csv("CDC_asthma_2021.csv")
@@ -27,41 +51,39 @@ covid_data3 <- read.csv("covid_confirmed_usafacts.csv")
 ```
 
 ## EPA Air Quality Data 2021
+
 ```{r}
 visdat::vis_dat(EPA_air_quality)
 ```
 
-* This dataset comes from the EPA and it shows air quality in 2021. Out of the many variables, we may only focus on a few, with a big focus on PM2.5 which can be detrimental to human health. There are a good amount of blank entries that we'll have to account for. 
+-   This dataset comes from the EPA and it shows air quality in 2021. Out of the many variables, we may only focus on a few, with a big focus on PM2.5 which can be detrimental to human health. There are a good amount of blank entries that we'll have to account for.
 
 ## Asthma Prevalence 2021
+
 ```{r}
 visdat::vis_dat(asthma_prevalence)
 ```
 
-* This is asthma prevalence on a state by state level in 2021 pulled from the CDC, the data set is pretty complete with a few NA's. 
+-   This is asthma prevalence on a state by state level in 2021 pulled from the CDC, the data set is pretty complete with a few NA's.
 
 ## Asthma Mortality 2021
+
 ```{r}
 visdat::vis_dat(asthma_mort)
 ```
 
-* This is the asthma mortality rate on a state by state level in 2021, also pulled from the CDC. 
+-   This is the asthma mortality rate on a state by state level in 2021, also pulled from the CDC.
 
 ## Covid Cases
 
-* For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There's issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.
+-   For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There's issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.
 
 # Methods Identification
-* From our data, we feel like we have a lot of air quality parameters to work with which can be very useful as we can explore multiple factors at once. We may already have all the data that we need, but there's a chance that could look at other respiratory illnesses in addition to asthma. 
-* A big challenge is the covid data because it's just so robust. However, with a lot of cleaning, it could work out. In addition, understanding some of the air quality indices may be challenging but if we focus on 1 or 2, it should be no big issue. 
 
-* Another challenge could just be that the data doesn't go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used. 
+-   From our data, we feel like we have a lot of air quality parameters to work with which can be very useful as we can explore multiple factors at once. We may already have all the data that we need, but there's a chance that could look at other respiratory illnesses in addition to asthma.
 
-* Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them. 
+-   A big challenge is the covid data because it's just so robust. However, with a lot of cleaning, it could work out. In addition, understanding some of the air quality indices may be challenging but if we focus on 1 or 2, it should be no big issue.
 
+-   Another challenge could just be that the data doesn't go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used.
 
-
-
-
-
-
+-   Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them.
