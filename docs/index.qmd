@@ -12,7 +12,7 @@ authors:
 bibliography: references.bib
 csl: apa.csl
 ---
-
+# Title: Low Air Quality, COVID Severity, and Their Effects on Asthma 
 # Introduction, Background, and Motivation
 hi
 
@@ -26,24 +26,38 @@ asthma_mort <- read.csv("CDC_asthma_mort2021.csv")
 covid_data3 <- read.csv("covid_confirmed_usafacts.csv")
 ```
 
-# This dataset comes from the EPA and it shows air quality in 2021. Out of the many variables, we may only focus on a few, with a big focus on PM2.5 which can be detrimental to human health. There are a good amount of blank entries that we'll have to account for. 
+## EPA Air Quality Data 2021
 ```{r}
 visdat::vis_dat(EPA_air_quality)
 ```
-## This is asthma prevalence on a state by state level in 2021 pulled from the CDC, the data set is pretty complete with a few NA's. 
+
+* This dataset comes from the EPA and it shows air quality in 2021. Out of the many variables, we may only focus on a few, with a big focus on PM2.5 which can be detrimental to human health. There are a good amount of blank entries that we'll have to account for. 
+
+## Asthma Prevalence 2021
 ```{r}
 visdat::vis_dat(asthma_prevalence)
 ```
-## This is the asthma mortality rate on a state by state level in 2021, also pulled from the CDC. 
+
+* This is asthma prevalence on a state by state level in 2021 pulled from the CDC, the data set is pretty complete with a few NA's. 
+
+## Asthma Mortality 2021
 ```{r}
 visdat::vis_dat(asthma_mort)
 ```
-## For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There's issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.
 
+* This is the asthma mortality rate on a state by state level in 2021, also pulled from the CDC. 
+
+## Covid Cases
+
+* For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There's issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.
 
 # Methods Identification
 * From our data, we feel like we have a lot of air quality parameters to work with which can be very useful as we can explore multiple factors at once. We may already have all the data that we need, but there's a chance that could look at other respiratory illnesses in addition to asthma. 
 * A big challenge is the covid data because it's just so robust. However, with a lot of cleaning, it could work out. In addition, understanding some of the air quality indices may be challenging but if we focus on 1 or 2, it should be no big issue. 
+
+* Another challenge could just be that the data doesn't go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used. 
+
+* Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them. 
 
 
 
