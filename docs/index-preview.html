@@ -266,6 +266,17 @@
   <li><a href="#covid-cases" id="toc-covid-cases" class="nav-link" data-scroll-target="#covid-cases">Covid Cases</a></li>
   </ul></li>
   <li><a href="#methods-identification" id="toc-methods-identification" class="nav-link" data-scroll-target="#methods-identification">Methods Identification</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">Correlation Matrix</a></li>
+  <li><a href="#graphing-and-visualization" id="toc-graphing-and-visualization" class="nav-link" data-scroll-target="#graphing-and-visualization">Graphing and Visualization</a>
+  <ul class="collapse">
+  <li><a href="#fig-1." id="toc-fig-1." class="nav-link" data-scroll-target="#fig-1.">Fig 1.</a></li>
+  <li><a href="#fig-2" id="toc-fig-2" class="nav-link" data-scroll-target="#fig-2">Fig 2</a></li>
+  <li><a href="#fig-3." id="toc-fig-3." class="nav-link" data-scroll-target="#fig-3.">Fig 3.</a></li>
+  </ul></li>
+  <li><a href="#modeling" id="toc-modeling" class="nav-link" data-scroll-target="#modeling">Modeling</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   </ul>
 </nav>
 </div>
@@ -297,7 +308,9 @@ There are multiple avenues for methodology with the data that we have. First and
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>EPA_air_quality <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"conreport2021.csv"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>asthma_prevalence <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"CDC_asthma_2021.csv"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>asthma_mort <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"CDC_asthma_mort2021.csv"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>covid_data3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"covid_confirmed_usafacts.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>covid_data3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"covid_confirmed_usafacts.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>covid_county <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"us-counties-2021.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"combined_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <section id="epa-air-quality-data-2021" class="level2">
 <h2 class="anchored" data-anchor-id="epa-air-quality-data-2021">EPA Air Quality Data 2021</h2>
@@ -349,8 +362,15 @@ There are multiple avenues for methodology with the data that we have. First and
 </section>
 <section id="covid-cases" class="level2">
 <h2 class="anchored" data-anchor-id="covid-cases">Covid Cases</h2>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(covid_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        date  county   state  fips cases deaths
+1 2021-12-31 Baldwin Georgia 13009  7127    203</code></pre>
+</div>
+</div></div>
 <ul>
-<li>For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There’s issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.</li>
+<li>For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. Since the data set is large we will condense it down into state totals.</li>
 </ul>
 </section>
 </section>
@@ -362,6 +382,228 @@ There are multiple avenues for methodology with the data that we have. First and
 <li><p>Another challenge could just be that the data doesn’t go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used.</p></li>
 <li><p>Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them.</p></li>
 </ul>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+</section>
+<section id="correlation-matrix" class="level1">
+<h1>Correlation Matrix</h1>
+<p>After the combination of data with State as our common parameters across all of them, we were able to get a dataset that included total PM2.5 means in states, total asthma cases in states, and total covid cases in states for 2021. This combination of the data allows us to run a correlation matrix in order to assess possible correlation.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pm25, asthma, covid) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            pm25    asthma     covid
+pm25   1.0000000 0.8499841 0.8321378
+asthma 0.8499841 1.0000000 0.9846430
+covid  0.8321378 0.9846430 1.0000000</code></pre>
+</div>
+</div></div>
+<p>This correlation matrix tells us a lot. There is a high positive correlation between PM2.5 asthma and Covid which makes sense because it’s well known that PM2.5 is particularly harmful to the lungs. However, asthma and covid rates have the absolute highest correlation rates with a score really close 1.0. Given that Covid was a very severe respiratory illness, it’s no surprise that people with asthma were in higher danger. However with that added danger of pollution, these cases could have been made worse. This high correlation will allow us to easily visualize our data as well as use predictive models to see how surges in covid cases or spikes in pollution can affect the rest.</p>
+</section>
+<section id="graphing-and-visualization" class="level1">
+<h1>Graphing and Visualization</h1>
+<section id="fig-1." class="level2">
+<h2 class="anchored" data-anchor-id="fig-1.">Fig 1.</h2>
+<p>The graph below shows the top 5 states with the most amount of covid cases.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>top5_states <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_cases)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top5_states, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(State, <span class="sc">-</span>total_cases), <span class="at">y =</span> total_cases, <span class="at">fill =</span> State)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 5 States by COVID-19 Cases (as of 12/31/2021)"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"State"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total COVID-19 Cases"</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="fig-2" class="level2">
+<h2 class="anchored" data-anchor-id="fig-2">Fig 2</h2>
+<p>The graph below shows how states with a bad air quality will have higher asthma rates.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>top5_asthma <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Number.With.Current.Asthma.)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top5_asthma, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(State, Number.With.Current.Asthma.))) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xend =</span> State, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> pm25),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#999999"</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> pm25, <span class="at">size =</span> Number.With.Current.Asthma., <span class="at">color =</span> State), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 5 States: Asthma Cases &amp; PM2.5 Air Quality Levels"</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"State"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"PM2.5 (Air Quality - Higher = Worse)"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="st">"Asthma Cases"</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"State"</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA
+Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
+returning NA</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using size for a discrete variable is not advised.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="fig-3." class="level2">
+<h2 class="anchored" data-anchor-id="fig-3.">Fig 3.</h2>
+<p>The graph below shows how the states with a higher amount of asthma cases are going to have more Covid deaths due to the fact that people with asthma have a lower chance of surviving Covid-19 because it is a respiratory illness.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>top5 <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_cases)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top5, <span class="fu">aes</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> total_cases,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> Number.With.Current.Asthma.,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> total_deaths,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> State</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">name =</span> <span class="st">"Total Deaths"</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 5 States by COVID-19 Cases: Asthma Burden &amp; Deaths"</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total COVID-19 Cases"</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number with Current Asthma"</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="modeling" class="level1">
+<h1>Modeling</h1>
+<p>As a predictive model, we are using a GLM (Generalized Linear Model). This can help us see how our predictors of Covid and PM2.5 affect asthma rates.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(asthma <span class="sc">~</span> covid <span class="sc">+</span> pm25 <span class="sc">+</span> covid<span class="sc">:</span>pm25, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">poisson</span>(), </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> combined_data)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = asthma ~ covid + pm25 + covid:pm25, family = poisson(), 
+    data = combined_data)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.173e+01  6.038e-04   19424   &lt;2e-16 ***
+covid        6.697e-07  2.537e-10    2640   &lt;2e-16 ***
+pm25         6.336e-03  5.659e-06    1120   &lt;2e-16 ***
+covid:pm25  -1.421e-09  1.068e-12   -1331   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 18835408  on 48  degrees of freedom
+Residual deviance:  2302275  on 45  degrees of freedom
+  (1 observation deleted due to missingness)
+AIC: 2302992
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(glm_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="index_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+<p>For a GLM model, this scattering around the zero is what we want to see. The randomness in a GLM indicates that the model has the information that it needs and it’s not missing anything to make the predictions.</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p style="text-indent: 2em;">
+The correlation matrix gave us an early indicator that there was a strong correlation between 3 of our variables: PM2.5, Covid, and Asthma. A simple way to visualize this was through some graphing comparing the inddivudual parameters on state levels. Because we are going on a state-by-state basis, a time-series analysis would be ideal but that amount of data would be too much to work with, so the modeling was done to see how spikes in Covid cases or spikes in pollution could predict asthma cases. We have data that can show us some of the most impacted states and this was used to predict asthma rates using our GLM. For the model results, the increments by which asthma increased were not massive but they were very statistically significant. Higher covid cases across states did mean that there would be more asthma cases but this wasn’t a big number because covid cases are on a person by person basis, however for the PM2.5, this was an air measurement and every increase in this particulate meant a 0.006336 increase in asthma rates. Through the graphs that we provided you can clearly see that states with a high amount of cases of asthma are going to have higher amount of covid deaths because covid is a respiratory illness and asthma patients are at a higher risk of death.
+</p>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p style="text-indent: 2em;">
+Our data was very correlative but the numbers weren’t big. However, with the data it’s clear that there is a link between air pollution (particularly PM2.5) and asthma so with something like Covid (or another respiratory illness pandemic) extra concern has to be taken to address areas with high pollution rates because they can be particularly hit hard. A better application of a study like this would be having it applied over a longer period of time in a time-series fashion, but that requires a lot more effort, time, and analysis. In addition, PM2.5 isn’t the only detrimental particulate that can be in our air. The EPA provides extensive research on harmful air pollution so more extensive analysis with that could be useful as well, however, here we are dealing with time and capability constraints. If more research is done like this with certain particulates being magnified though, perhaps more policy can be sought after to reduce their prevalence. While Covid might feel like a concentrated event that was detrimental at the time, we cannot afford to be ill prepared moving on and more consideration has to be taken for the more susceptible residents.
+</p>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-agondi2022worsening" class="csl-entry" role="listitem">
 Agondi, R. C., Menechino, N., Marinho, A. K. B. B., Kalil, J., &amp; Giavina-Bianchi, P. (2022). Worsening of asthma control after COVID-19. <em>Frontiers in Medicine</em>, <em>9</em>, 882665.
@@ -797,7 +1039,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

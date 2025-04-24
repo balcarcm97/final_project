@@ -39,6 +39,8 @@ EPA_air_quality <- read.csv("conreport2021.csv")
 asthma_prevalence <- read.csv("CDC_asthma_2021.csv")
 asthma_mort <- read.csv("CDC_asthma_mort2021.csv")
 covid_data3 <- read.csv("covid_confirmed_usafacts.csv")
+covid_county <- read.csv("us-counties-2021.csv")
+combined_data <- read.csv("combined_data.csv")
 ```
 
 ## EPA Air Quality Data 2021
@@ -67,7 +69,12 @@ visdat::vis_dat(asthma_mort)
 
 ## Covid Cases
 
--   For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. There's issues with the date formatting and it creates a lot of issues especially with visualization so the usual vis_dat is not useful here.
+```{r}
+dplyr::slice_sample(covid_county)
+```
+
+
+-   For the covid side we decided to go with case count and while this data set covers a large period of time, we will only focus on 2021. Since the data set is large we will condense it down into state totals.
 
 # Methods Identification
 
@@ -78,3 +85,132 @@ visdat::vis_dat(asthma_mort)
 -   Another challenge could just be that the data doesn't go our way when we apply our methods. In that case, we could bring in separate previously mentioned respiratory illness data that could be used.
 
 -   Our methods could lead us to find a correlation between environmental factors like air quality and covid to see its effect on asthma (and possible other respiratory illnesses) because we will be directly comparing them.
+
+# Methods
+
+# Correlation Matrix 
+After the combination of data with State as our common parameters across all of them, we were able to get a dataset that included total PM2.5 means in states, total asthma cases in states, and total covid cases in states for 2021. This combination of the data allows us to run a correlation matrix in order to assess possible correlation.
+```{r}
+library(tidyverse)
+cor_matrix <- combined_data %>%
+  select(pm25, asthma, covid) %>%
+  cor(use = "complete.obs")
+
+print(cor_matrix)
+
+```
+This correlation matrix tells us a lot. There is a high positive correlation between PM2.5 asthma and Covid which makes sense because it's well known that PM2.5 is particularly harmful to the lungs. However, asthma and covid rates have the absolute highest correlation rates with a score really close 1.0. Given that Covid was a very severe respiratory illness, it's no surprise that people with asthma were in higher danger. However with that added danger of pollution, these cases could have been made worse. This high correlation will allow us to easily visualize our data as well as use predictive models to see how surges in covid cases or spikes in pollution can affect the rest. 
+
+# Graphing and Visualization
+## Fig 1. 
+The graph below shows the top 5 states with the most amount of covid cases.
+```{r}
+library(tidyverse)
+
+top5_states <- combined_data %>%
+  arrange(desc(total_cases)) %>%
+  slice(1:5)
+
+ggplot(top5_states, aes(x = reorder(State, -total_cases), y = total_cases, fill = State)) +
+  geom_col(show.legend = FALSE) +
+  labs(
+    title = "Top 5 States by COVID-19 Cases (as of 12/31/2021)",
+    x = "State",
+    y = "Total COVID-19 Cases"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+## Fig 2 
+The graph below shows how states with a bad air quality will have higher asthma rates.
+```{r}
+library(tidyverse)
+
+top5_asthma <- combined_data %>%
+  arrange(desc(Number.With.Current.Asthma.)) %>%
+  slice(1:5)
+
+ggplot(top5_asthma, aes(x = reorder(State, Number.With.Current.Asthma.))) +
+  geom_segment(
+    aes(xend = State, y = 0, yend = pm25),
+    color = "#999999"
+  ) +
+  geom_point(aes(y = pm25, size = Number.With.Current.Asthma., color = State), alpha = 0.8) +
+  scale_color_brewer(palette = "Set1") +
+  coord_flip() +
+  labs(
+    title = "Top 5 States: Asthma Cases & PM2.5 Air Quality Levels",
+    x = "State",
+    y = "PM2.5 (Air Quality - Higher = Worse)",
+    size = "Asthma Cases",
+    color = "State"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.y = element_text(size = 10)
+  )
+```
+
+## Fig 3. 
+The graph below shows how the states with a higher amount of asthma cases are going to have more Covid deaths due to the fact that people with asthma have a lower chance of surviving  Covid-19 because it is a respiratory illness.
+```{r}
+top5 <- combined_data %>%
+  arrange(desc(total_cases)) %>%
+  slice(1:5)
+
+ggplot(top5, aes(
+  x = total_cases,
+  y = Number.With.Current.Asthma.,
+  size = total_deaths,
+  color = State
+)) +
+  geom_point(alpha = 0.7) +
+  scale_size_continuous(name = "Total Deaths", range = c(4, 20)) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Top 5 States by COVID-19 Cases: Asthma Burden & Deaths",
+    x = "Total COVID-19 Cases",
+    y = "Number with Current Asthma"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 14, face = "bold")
+  )
+
+```
+
+
+
+
+# Modeling 
+As a predictive model, we are using a GLM (Generalized Linear Model). This can help us see how our predictors of Covid and PM2.5 affect asthma rates.
+```{r}
+glm_model <- glm(asthma ~ covid + pm25 + covid:pm25, 
+                 family = poisson(), 
+                 data = combined_data)
+summary(glm_model)
+
+```
+```{r}
+plot(residuals(glm_model))
+```
+For a GLM model, this scattering around the zero is what we want to see. The randomness in a GLM indicates that the model has the information that it needs and it's not missing anything to make the predictions.
+
+
+
+# Results 
+<p style="text-indent: 2em;">
+The correlation matrix gave us an early indicator that there was a strong correlation between 3 of our variables: PM2.5, Covid, and Asthma. A simple way to visualize this was through some graphing comparing the inddivudual parameters on state levels.  Because we are going on a state-by-state basis, a time-series analysis would be ideal but that amount of data would be too much to work with, so the modeling was done to see how spikes in Covid cases or spikes in pollution could predict asthma cases. We have data that can show us some of the most impacted states and this was used to predict asthma rates using our GLM. For the model results, the increments by which asthma increased were not massive but they were very statistically significant. Higher covid cases across states did mean that there would be more asthma cases but this wasn’t a big number because covid cases are on a person by person basis, however for the PM2.5, this was an air measurement and every increase in this particulate meant a 0.006336 increase in asthma rates. Through the graphs that we provided you can clearly see that states with a high amount of cases of asthma are going to have higher amount of covid deaths because covid is a respiratory illness and asthma patients are at a higher risk of death. 
+</p>
+
+# Discussion 
+<p style="text-indent: 2em;">
+Our data was very correlative but the numbers weren’t big. However, with the data it’s clear that there is a link between air pollution (particularly PM2.5) and asthma so with something like Covid (or another respiratory illness pandemic) extra concern has to be taken to address areas with high pollution rates because they can be particularly hit hard. A better application of a study like this would be having it applied over a longer period of time in a time-series fashion, but that requires a lot more effort, time, and analysis. In addition, PM2.5 isn’t the only detrimental particulate that can be in our air. The EPA provides extensive research on harmful air pollution so more extensive analysis with that could be useful as well, however, here we are dealing with time and capability constraints. If more research is done like this with certain particulates being magnified though, perhaps more policy can be sought after to reduce their prevalence. While Covid might feel like a concentrated event that was detrimental at the time, we cannot afford to be ill prepared moving on and more consideration has to be taken for the more susceptible residents. 
+</p>
+
+
+
+
