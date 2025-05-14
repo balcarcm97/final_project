@@ -21,6 +21,11 @@ library(tidyverse)
 
 # Low Air Quality, COVID Severity, and Their Effects on Asthma
 
+# Abstract 
+<p style="text-indent: 2em;">
+The effects of pollution are widely known to be detrimental to human health. In this study we aim to do a deeper dive into converging factors. We not only look at pollution and its effects on asthma but we also incorporate the COVID pandemic. Our analysis shows that there's a relationship between the three factors that necessitates a deeper dive. We started with a correlation matrix that showed a positive relationship across the board, we used some modeling to show predictive estimates that indicate that higher COVID and pollution of PM2.5 can have higher asthma rates, and we used bar graphs in order to neatly display the data to show this trend. The pandemic showed us that we were ill prepared in some facets at the beginning but by working this kind of problem, we may be able to help people who are prone to higher risks given our pollution levels. In addition, a study like this could prompt reform for polluters to slow their output down for the good of human health. However, at the very least, it could prompt a better response in case something like COVID strikes again. 
+</p>
+
 # Introduction, Background, and Motivation
 
 <p style="text-indent: 2em;">
