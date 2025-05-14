@@ -19,7 +19,7 @@ library(tidyverse)
 ```
 
 
-# Title: Low Air Quality, COVID Severity, and Their Effects on Asthma
+# Low Air Quality, COVID Severity, and Their Effects on Asthma
 
 # Introduction, Background, and Motivation
 

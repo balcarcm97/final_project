@@ -262,7 +262,7 @@
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#title-low-air-quality-covid-severity-and-their-effects-on-asthma" id="toc-title-low-air-quality-covid-severity-and-their-effects-on-asthma" class="nav-link active" data-scroll-target="#title-low-air-quality-covid-severity-and-their-effects-on-asthma">Title: Low Air Quality, COVID Severity, and Their Effects on Asthma</a></li>
+  <li><a href="#low-air-quality-covid-severity-and-their-effects-on-asthma" id="toc-low-air-quality-covid-severity-and-their-effects-on-asthma" class="nav-link active" data-scroll-target="#low-air-quality-covid-severity-and-their-effects-on-asthma">Low Air Quality, COVID Severity, and Their Effects on Asthma</a></li>
   <li><a href="#introduction-background-and-motivation" id="toc-introduction-background-and-motivation" class="nav-link" data-scroll-target="#introduction-background-and-motivation">Introduction, Background, and Motivation</a></li>
   <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">Data Exploration</a>
   <ul class="collapse">
@@ -307,8 +307,8 @@
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div></div>
-<section id="title-low-air-quality-covid-severity-and-their-effects-on-asthma" class="level1">
-<h1>Title: Low Air Quality, COVID Severity, and Their Effects on Asthma</h1>
+<section id="low-air-quality-covid-severity-and-their-effects-on-asthma" class="level1">
+<h1>Low Air Quality, COVID Severity, and Their Effects on Asthma</h1>
 </section>
 <section id="introduction-background-and-motivation" class="level1">
 <h1>Introduction, Background, and Motivation</h1>
@@ -388,8 +388,8 @@ There are multiple avenues for methodology with the data that we have. First and
 <div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(covid_county)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        date county   state  fips cases deaths
-1 2021-10-11 Holmes Florida 12059  3779     69</code></pre>
+<pre><code>        date county       state  fips cases deaths
+1 2021-10-01  Loiza Puerto Rico 72087  1720     NA</code></pre>
 </div>
 </div></div>
 <ul>
@@ -1029,7 +1029,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
